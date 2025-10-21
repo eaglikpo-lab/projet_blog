@@ -1,0 +1,273 @@
+body {
+    font-family: Poppins, sans-serif;
+    background-color: black;
+    color: whitesmoke;
+    margin: 0;
+    padding: 20px 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.2rem;
+    color:aliceblue;
+    text-align: center;
+}
+
+
+.no-articles {
+    color: #777;
+    font-style: italic;
+}
+
+.success {
+    color: rgb(92, 225, 92);
+    opacity: .7;
+    font-size: .875rem;
+    justify-content: center;
+    align-items: center;
+    padding: auto;
+    font-style: italic;
+    font-weight: 200;
+}
+
+
+
+.article h2 {
+    color: #007bff;
+    font-size: 1.2rem;
+    margin-bottom: -11px;
+}
+
+.article p {
+    line-height: 1.5;
+    margin-top: 15px;
+}
+
+.article small{
+    font-size: .7rem;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 8px;
+    background-color: aliceblue;
+    padding: 5px;
+    box-shadow: #777;
+    width: 50%;
+    height: auto;
+    justify-content: center;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Centrage horizontal */
+}
+
+.article-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background: azure;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.article-card a {
+    text-decoration: none;
+    color: #064a93;
+    transition: color 0.3s ease;
+}
+
+.article a:hover {
+    color: #69a4e2;
+}
+
+.article-image {
+    width: 100%;
+    height: 100%;
+    /*object-fit: cover;
+   
+    
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 10px;*/
+}
+
+.article-image img {
+   width: 100%;
+    overflow:hidden;
+}
+
+.article {
+    text-align: left;
+    color: #2b3f54;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: .8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    color: black;
+}
+
+.btn-primary {
+    background-color: #57728f;
+}
+
+.btn-primary:hover {
+    background-color: #2b3f54;
+ 
+}
+
+.btn-danger {
+    background-color: #ef8053;
+}
+
+.btn-danger:hover {
+    background-color: #f74343;
+}
+
+.btn-update{
+    background: rgb(2, 2, 101);
+    color: white;
+}
+
+.btn-update:hover {
+    background-color: #40e7f6;
+}
+
+.CRUD {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    background: aliceblue;
+    padding: 7% 15px;
+    border-radius: 8px;
+    width: 55%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: #2b3f54;
+}
+
+.show-article-image {
+    width: 80%;
+    height: 50%;
+    overflow: hidden;
+}
+
+.show-article-image img {
+    width: 100%;
+    height: auto;
+}
+
+.container p {
+    width: 80%;
+    text-align: justify;
+}
+
+.container form {
+    background: none;
+    width: 70%;
+}
+
+.container h1 {
+    color: #2b3f54;
+}
+
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 2px;
+    border-radius: 5px;
+    text-decoration: none;
+    /*background: aliceblue;
+    color: #333;*/
+}
+
+.pagination .active span {
+    background: #3498db;
+    color: white;
+}
+
+
+.categories-filter {
+    display: flex;
+    margin-bottom: 15px; 
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.display{
+    background-color:#007bff;
+    color: whitesmoke;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+.search-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-form button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
