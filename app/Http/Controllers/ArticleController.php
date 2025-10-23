@@ -19,7 +19,7 @@ class ArticleController extends Controller
     }
 
     /**
-     *  Créer (stocker) un nouvel article
+     *  Créer (stocker) un nouvel article dans la table Article
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
