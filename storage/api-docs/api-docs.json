@@ -1,0 +1,532 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Blog API",
+        "description": "Documentation de l’API du projet Blog",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Serveur principal"
+        }
+    ],
+    "paths": {
+        "/api/articles": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Lister tous les articles",
+                "description": "Récupère tous les articles ou ceux d'une catégorie spécifique si `categorie_id` est fourni.",
+                "operationId": "getArticles",
+                "parameters": [
+                    {
+                        "name": "categorie_id",
+                        "in": "query",
+                        "description": "Filtrer les articles par ID de catégorie",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des articles récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aucun article trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Aucun article trouvé"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articles/{id}": {
+            "delete": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Supprimer une article",
+                "description": "Supprime une article existante à partir de son ID.",
+                "operationId": "deleteArticle",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'article à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Article supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Article supprimée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Article introuvable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Catégories"
+                ],
+                "summary": "Lister toutes les catégories",
+                "operationId": "0a3810ef08509327a6db442d3e4c4b73",
+                "responses": {
+                    "200": {
+                        "description": "Liste des catégories récupérée avec succès"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Catégories"
+                ],
+                "summary": "Créer une catégorie",
+                "operationId": "f44066b315f1a6670d352e128ba39465",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Technologie"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Catégorie sur les articles tech"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Catégorie créée avec succès"
+                    }
+                }
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Catégories"
+                ],
+                "summary": "Afficher une catégorie spécifique",
+                "description": "Récupère les détails d'une catégorie selon son ID",
+                "operationId": "getCategorieById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identifiant unique de la catégorie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Catégorie trouvée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "Technologie"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Articles sur les innovations tech"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-10-23T10:20:30"
+                                        },
+                                        "created_at_formatted": {
+                                            "type": "string",
+                                            "example": "2025-10-23 10:20:30"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Catégorie introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie introuvable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Catégories"
+                ],
+                "summary": "Mettre à jour une catégorie",
+                "description": "Met à jour les informations d'une catégorie existante selon son ID.",
+                "operationId": "updateCategorie",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identifiant unique de la catégorie à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Les champs à mettre à jour pour la catégorie",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Technologie et Innovation"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Catégorie mise à jour avec des articles sur la tech moderne"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Catégorie mise à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "Technologie et Innovation"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Catégorie mise à jour avec succès"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-10-23T09:12:30"
+                                        },
+                                        "created_at_formatted": {
+                                            "type": "string",
+                                            "example": "2025-10-23 09:12:30"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Catégorie introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie introuvable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Catégories"
+                ],
+                "summary": "Supprimer une catégorie",
+                "description": "Supprime une catégorie existante à partir de son ID.",
+                "operationId": "deleteCategorie",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la catégorie à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Catégorie supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie supprimée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Catégorie introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Catégorie introuvable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Article": {
+                "title": "Article Resource",
+                "description": "Structure d'un article retourné par l'API",
+                "properties": {
+                    "id": {
+                        "description": "Identifiant unique de l'article",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "description": "Titre de l'article",
+                        "type": "string",
+                        "example": "Introduction à Laravel"
+                    },
+                    "description": {
+                        "description": "Contenu de l'article",
+                        "type": "string",
+                        "example": "Laravel est un framework PHP moderne..."
+                    },
+                    "image": {
+                        "description": "URL complète de l'image si disponible",
+                        "type": "string",
+                        "example": "http://127.0.0.1:8000/storage/images/article1.jpg",
+                        "nullable": true
+                    },
+                    "keywords": {
+                        "description": "Mots-clés liés à l'article",
+                        "type": "string",
+                        "example": "laravel, php, framework",
+                        "nullable": true
+                    },
+                    "categorie": {
+                        "description": "Nom de la catégorie associée",
+                        "type": "string",
+                        "example": "Programmation"
+                    },
+                    "created_at": {
+                        "description": "Date de création brute",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-23T09:30:00Z"
+                    },
+                    "created_at_formatted": {
+                        "description": "Date de création formatée",
+                        "type": "string",
+                        "example": "2025-10-23 09:30:00"
+                    },
+                    "updated_at": {
+                        "description": "Date de mise à jour brute",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-23T10:00:00Z"
+                    },
+                    "updated_at_formatted": {
+                        "description": "Date de mise à jour formatée",
+                        "type": "string",
+                        "example": "2025-10-23 10:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginatedArticles": {
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Article"
+                        }
+                    },
+                    "links": {
+                        "properties": {
+                            "first": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "last": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "prev": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "next": {
+                                "type": "string",
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "meta": {
+                        "properties": {
+                            "current_page": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "from": {
+                                "type": "integer",
+                                "nullable": true
+                            },
+                            "last_page": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "path": {
+                                "type": "string"
+                            },
+                            "per_page": {
+                                "type": "integer",
+                                "example": 15
+                            },
+                            "to": {
+                                "type": "integer",
+                                "nullable": true
+                            },
+                            "total": {
+                                "type": "integer",
+                                "example": 150
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Articles",
+            "description": "Articles"
+        },
+        {
+            "name": "Catégories",
+            "description": "Catégories"
+        }
+    ]
+}
