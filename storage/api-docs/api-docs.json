@@ -63,9 +63,260 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Créer un nouvel article",
+                "description": "Crée un nouvel article avec un titre, contenu, catégorie et éventuellement une image et des mots-clés.",
+                "operationId": "storeArticle",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "titre",
+                                    "contenu",
+                                    "categorie_id"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Les nouveautés de Laravel 12"
+                                    },
+                                    "contenu": {
+                                        "type": "string",
+                                        "example": "Laravel 12 introduit une nouvelle structure API..."
+                                    },
+                                    "image": {
+                                        "description": "Image associée à l'article",
+                                        "type": "file",
+                                        "format": "binary"
+                                    },
+                                    "mots_cles": {
+                                        "type": "string",
+                                        "example": "Laravel, PHP, Backend"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Article créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Article"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation des champs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The titre field is required."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/articles/{id}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Afficher un article spécifique",
+                "description": "Récupère les informations détaillées d’un article à partir de son identifiant.",
+                "operationId": "getArticleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identifiant de l'article à afficher",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article récupéré avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Article"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Article introuvable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Mettre à jour un article existant",
+                "description": "Permet de modifier un article existant à partir de son identifiant.",
+                "operationId": "updateArticle",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identifiant de l'article à modifier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Titre mis à jour"
+                                    },
+                                    "contenu": {
+                                        "type": "string",
+                                        "example": "Nouveau contenu de l'article..."
+                                    },
+                                    "image": {
+                                        "description": "Image optionnelle (jpg, jpeg, png, gif)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "mots_cles": {
+                                        "type": "string",
+                                        "example": "laravel, php, mise à jour"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Article mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 7
+                                        },
+                                        "titre": {
+                                            "type": "string",
+                                            "example": "Titre mis à jour"
+                                        },
+                                        "contenu": {
+                                            "type": "string",
+                                            "example": "Nouveau contenu de l'article..."
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/storage/images/abc.jpg",
+                                            "nullable": true
+                                        },
+                                        "keywords": {
+                                            "type": "string",
+                                            "example": "laravel, php, mise à jour"
+                                        },
+                                        "categorie_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "categorie": {
+                                            "type": "string",
+                                            "example": "Tech",
+                                            "nullable": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "created_at_formatted": {
+                                            "type": "string",
+                                            "example": "2025-10-23 17:46:47"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at_formatted": {
+                                            "type": "string",
+                                            "example": "2025-10-23 17:46:47"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Article introuvable"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Articles"
