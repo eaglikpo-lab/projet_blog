@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
-use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-
 
 
 /**
@@ -56,7 +54,7 @@ use Illuminate\Http\JsonResponse;
  */
 class ArticleController extends Controller
 {
-      public function index(Request $request): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $categorieId = $request->query('categorie_id');
        // dd($categorieId);
@@ -118,16 +116,18 @@ class ArticleController extends Controller
             'categorie_id' => 'required|exists:categories,id',
         ]);
 
+        $validated['admin_id'] = auth()->id();
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             // => ex: "images/uh3s8sd92.jpg"
             $path = $request->file('image')->store('images', 'public');
             $validated['image'] = $path;
         }
 
-
         $article = Article::create($validated);
         return response()->json(ArticleResource::make($article), 201);
     }
+
 
 
     /**
@@ -206,7 +206,7 @@ class ArticleController extends Controller
      *         @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="id", type="integer", example=7),
-     *              @OA\Property(property="titre", type="string", example="Titre mis à jour"),
+     *              @OA\Property(property="title", type="string", example="Titre mis à jour"),
      *              @OA\Property(property="contenu", type="string", example="Nouveau contenu de l'article..."),
      *              @OA\Property(property="image", type="string", nullable=true, example="http://127.0.0.1:8000/storage/images/abc.jpg"),
      *              @OA\Property(property="keywords", type="string", example="laravel, php, mise à jour"),
@@ -232,29 +232,31 @@ class ArticleController extends Controller
      * @param \App\Models\Article $article
      * @return \Illuminate\Http\JsonResponse
      */
-        public function update(Request $request,  $id): JsonResponse
-        {
-            $article = Article::find($id);
+    public function update(Request $request,  $id): JsonResponse
+    {
+        $article = Article::find($id);
 
-            if (!$article) {
-                return response()->json(['message' => 'Article introuvable'], 404);
-            }
-            $validated = $request->validate([
-                'titre' => 'sometimes|string|max:255',
-                'contenu' => 'sometimes|string',
-                'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-                'mots_cles' => 'nullable|string',
-                'categorie_id' => 'sometimes|exists:categories,id',
-            ]);
+        if (!$article) {
+            return response()->json(['message' => 'Article introuvable'], 404);
+        }
+        $validated = $request->validate([
+            'titre' => 'sometimes|string|max:255',
+            'contenu' => 'sometimes|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'mots_cles' => 'nullable|string',
+            'categorie_id' => 'sometimes|exists:categories,id',
+        ]);
 
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $validated['admin_id'] = auth()->id();
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $validated['image'] = $request->file('image')->store('images', 'public');
             }
 
             $article->update($validated);
             return response()->json(ArticleResource::make($article), 200);
-        }
-
+    }
+    
 
     /**
      * Supprime une article spécifique de la base de données.

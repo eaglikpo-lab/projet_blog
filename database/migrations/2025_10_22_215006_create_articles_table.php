@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('mots_cles')->nullable();
             $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

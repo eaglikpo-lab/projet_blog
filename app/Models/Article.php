@@ -19,6 +19,7 @@ class Article extends Model
         'image',
         'mots_cles',
         'categorie_id',
+        'admin_id',
     ];
 
     // Un article appartient à une catégorie
@@ -26,6 +27,12 @@ class Article extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class); //un article a plusieurs commentaires
+    }
+
 
     #[Scope]
     /**

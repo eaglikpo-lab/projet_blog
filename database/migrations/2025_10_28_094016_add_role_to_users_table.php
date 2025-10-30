@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom')->unique();
-            $table->text('description')->nullable();
-            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->string('role')->default('user'); // 'user' par défaut
         });
     }
 
@@ -25,6 +22,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColumn('role');
+        });
     }
 };
+
+

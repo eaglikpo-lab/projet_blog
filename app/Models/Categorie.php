@@ -15,6 +15,7 @@ class Categorie extends Model
     protected $fillable = [
         'nom',
         'description',
+        'admin_id',
     ];
 
     // Une catégorie peut avoir plusieurs articles
