@@ -11,23 +11,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-
-
 // Routes publiques
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::apiResource('articles', ArticleController::class);
+Route::apiResource('categories', CategorieController::class);
 
+Route::get('/articles/{articleId}/comments', [CommentController::class, 'indexComment']);   // Voir les commentaires d’un article
 // Routes protégées par Sanctum
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('categories', CategorieController::class);
-    Route::apiResource('articles', ArticleController::class);
+    // Route::post('/categories', [CategorieController::class, 'store']);
+    // Route::post('/categories', [CategorieController::class, 'store']);
+    // Route::post('/categories', [CategorieController::class, 'store']);
+
 
     Route::get('/user', [AuthController::class, 'user']);
     Route::get('/dashboard', [AuthController::class, 'dashboard']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/articles/{articleId}/comments', [CommentController::class, 'indexComment']);   // Voir les commentaires d’un article
     Route::post('/articles/{articleId}/comments', [CommentController::class, 'storeComment']);   // Ajouter un commentaire
     Route::delete('/comments/{comment}', [CommentController::class, 'destroyComment']);  // Supprimer un commentaire
     Route::put('/comments/{comment}', [CommentController::class, 'updateComment']);

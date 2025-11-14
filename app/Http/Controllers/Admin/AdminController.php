@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategorieController;
 use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
@@ -112,7 +113,7 @@ class AdminController extends Controller
     public function destroy(User $user)
     {
         // On empêche un admin de se supprimer lui-même
-        if (auth()->id() === $user->id) {
+        if (Auth::id() === $user->id) {
             return response()->json([
                 'message' => 'Vous ne pouvez pas supprimer votre propre compte.'
             ], 403);

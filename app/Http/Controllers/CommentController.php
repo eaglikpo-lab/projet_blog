@@ -28,13 +28,13 @@ class CommentController extends Controller
             'contenu' => $validated['contenu'],
             'parent_id' => $validated['parent_id'] ?? null,
         ]);
-        // return response()->json([
-        //     'message' => 'Commentaire ajouté avec succès.',
-        //     'comment' => $comment->load('user'),
-        // ], 201);
         return response()->json([
             'message' => 'Commentaire ajouté avec succès.',
-            'comment' => $comment], 201);
+            'comment' => $comment->load('user'),
+        ], 201);
+        // return response()->json([
+        //     'message' => 'Commentaire ajouté avec succès.',
+        //     'comment' => $comment], 201);
     }
 
     /**

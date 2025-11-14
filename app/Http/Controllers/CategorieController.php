@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CategorieResource;
 use App\Models\Categorie;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -59,7 +59,7 @@ class CategorieController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $validated['admin_id'] = auth()->id();
+        $validated['admin_id'] = Auth::id();
 
         $categorie = Categorie::create($validated);
         return response()->json(CategorieResource::make($categorie), 201);
@@ -192,7 +192,7 @@ class CategorieController extends Controller
             'description' => 'nullable|string',
         ]);
         
-        $validated['admin_id'] = auth()->id();
+        $validated['admin_id'] =  Auth::id();
 
         $categorie->update($validated);
 
