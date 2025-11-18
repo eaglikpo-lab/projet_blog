@@ -25,3 +25,10 @@ Route::get('/reset-password/{token}', [PasswordResetController::class, 'showRese
 
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])
     ->name('password.update');
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/run-seeder', function () {
+    Artisan::call('db:seed');
+    return 'Seeder exécuté !';
+});
