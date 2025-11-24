@@ -122,7 +122,7 @@ class ArticleController extends Controller
             // => ex: "images/uh3s8sd92.jpg"
             // Create the images folder in public if not exists
 
-            $path = $request->file('image')->store('images', 'public');
+            $path = $request->file('image')->store('images', );
             $validated['image'] = $path;
         }
 
