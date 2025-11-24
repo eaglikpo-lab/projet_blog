@@ -31,11 +31,14 @@ return [
         'http://localhost:4173',
         'http://127.0.0.1:4173',
         'https://eaglikpo-lab.github.io',
-        'https://vue-js-git-blogvue-adleas-projects.vercel.app/',
-        'https://vue-72a657dtb-adleas-projects.vercel.app/'
+        'https://vue-js-git-blogvue-adleas-projects.vercel.app',
+        'https://vue-72a657dtb-adleas-projects.vercel.app'
     ],
 
-    'allowed_origins_patterns' => [],
+
+    'allowed_origins_patterns' => [
+        '/^https:\/\/.*\.vercel\.app$/', // Accepte tous les domaines vercel.app
+    ],
 
     'allowed_headers' => ['*'],
 

@@ -18,6 +18,7 @@ Route::apiResource('articles', ArticleController::class);
 Route::apiResource('categories', CategorieController::class);
 
 Route::get('/articles/{articleId}/comments', [CommentController::class, 'indexComment']);   // Voir les commentaires d’un article
+
 // Routes protégées par Sanctum
 Route::middleware('auth:sanctum')->group(function () {
 
