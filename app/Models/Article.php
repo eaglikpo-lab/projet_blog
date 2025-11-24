@@ -41,8 +41,13 @@ class Article extends Model
      * @param int $categoryId
      * @return void
      */
-    protected function forCategory(Builder $query, $categoryId)
+    // protected function forCategory(Builder $query, $categoryId)
+    // {
+    //     $query->where("categorie_id", "=", $categoryId);
+    // }
+
+    public function scopeForCategory(Builder $query, int $categoryId): Builder
     {
-        $query->where("categorie_id", "=", $categoryId);
+        return $query->where('categorie_id', $categoryId);
     }
 }
