@@ -57,7 +57,7 @@ class ArticleController extends Controller
     public function index(Request $request): JsonResponse
     {
         $categorieId = $request->query('categorie_id');
-       // dd($categorieId);
+        // dd($categorieId);
         if($categorieId) {
             $articles = Article::forCategory($categorieId)->latest()->paginate(10);
         } else {
