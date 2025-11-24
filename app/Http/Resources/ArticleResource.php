@@ -25,9 +25,9 @@ class ArticleResource extends JsonResource
             //'image' => $this->image ? asset('storage/' . $this->image) : null,   //avant
 
             // ✅ Génère l'URL complète HTTPS automatiquement
-            'image' => $this->image ? Storage::url($this->image) : null,  //càd: Retourne : "https://projetblog-production.up.railway.app/storage/images/xxx.jpg"
+            //'image' => $this->image ? Storage::url($this->image) : null,  //càd: Retourne : "https://projetblog-production.up.railway.app/storage/images/xxx.jpg"
             // Ou alternative :
-            // 'image' => $this->image ? url('storage/' . $this->image) : null,
+            'image' => $this->image ? url('storage/' . $this->image) : null,
             'keywords' => $this->mots_cles,
             'categorie' => $this->categorie->nom,
             "created_at" => $this->created_at,

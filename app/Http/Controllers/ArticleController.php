@@ -59,7 +59,7 @@ class ArticleController extends Controller
         $categorieId = $request->query('categorie_id');
         // dd($categorieId);
         if($categorieId) {
-            $articles = Article::forCategory($categorieId)->latest()->paginate(10);
+            $articles = Article::forCategory( $categorieId)->latest()->paginate(10);
         } else {
             $articles = Article::with('categorie')->paginate(10);
         }
