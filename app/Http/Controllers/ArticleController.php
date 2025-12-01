@@ -171,7 +171,7 @@ class ArticleController extends Controller
         if (!$article) {
             return response()->json(['message' => 'Article introuvable'], 404);
         }
-        return response()->json(ArticleResource::make($article->load('categorie')), 200);
+        return response()->json(ArticleResource::make($article->load('categorie', 'user')), 200);
     }
 
     /**
